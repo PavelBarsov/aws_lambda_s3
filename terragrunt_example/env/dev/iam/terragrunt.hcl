@@ -10,8 +10,7 @@ dependency "s3" {
   mock_outputs_allowed_terraform_commands = ["validate", "init", "plan"]
 }
 
-inputs = {
-  environment = "dev"
+inputs = { 
   s3_bucket   = "s3-lambda-tf"
   s3_prefix   = "website/dev"
   ro_s3_bucket  = dependency.s3.outputs.bucket_name
@@ -19,13 +18,4 @@ inputs = {
 
 include {
   path = find_in_parent_folders()
-}
-
-remote_state {
-  backend = "s3"
-  config = {
-    bucket         = "s3-lambda-tf"
-    key            = "dev/iam/terraform.tfstate"
-    region         = "us-east-1"
-  }
 }
