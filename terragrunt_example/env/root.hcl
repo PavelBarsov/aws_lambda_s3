@@ -29,14 +29,18 @@ EOF
 
 generate "backend" {
   path = "backend.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "overwrite"
   contents = <<EOF
 terraform {
   backend "s3" {
     bucket = "s3-lambda-tf"
     key    = "${path_relative_to_include()}/terraform.tfstate"
-    region = var.region
+    region = "us-east-1"
   }
 }
 EOF
+}
+
+inputs = {
+  region      = "us-east-1" # default region
 }

@@ -18,6 +18,7 @@ inputs ={
   lambda_function_name = dependency.lambda.outputs.lambda_function_name
 }
 
-include {
-  path = find_in_parent_folders()
+include "root" {
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }

@@ -16,6 +16,7 @@ inputs = {
   ro_s3_bucket  = dependency.s3.outputs.bucket_name
 }
 
-include {
-  path = find_in_parent_folders()
+include "root" {
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }

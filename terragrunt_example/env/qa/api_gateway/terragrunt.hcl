@@ -14,20 +14,11 @@ terraform {
 }
 
 inputs = {
-  environment          = "qa"
   lambda_function_arn  = dependency.lambda.outputs.lambda_function_arn
   lambda_function_name = dependency.lambda.outputs.lambda_function_name
 }
 
-include {
-  path = find_in_parent_folders()
-}
-
-remote_state {
-  backend = "s3"
-  config = {
-    bucket         = "s3-lambda-tf"
-    key            = "qa/api_gateway/terraform.tfstate"
-    region         = "us-east-1"
-  }
+include "root" {
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }

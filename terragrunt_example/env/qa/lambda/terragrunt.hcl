@@ -19,7 +19,6 @@ dependency "s3" {
 }
 
 inputs = {
-  environment   = "qa"
   s3_bucket     = "s3-lambda-tf"
   s3_key        = "website/qa/lambda.zip"
   iam_role_arn  = dependency.iam.outputs.iam_role_arn
@@ -29,11 +28,7 @@ include {
   path = find_in_parent_folders()
 }
 
-remote_state {
-  backend = "s3"
-  config = {
-    bucket         = "s3-lambda-tf"
-    key            = "qa/lambda/terraform.tfstate"
-    region         = "us-east-1"
-  }
+include "root" {
+  path   = find_in_parent_folders("root.hcl")
+  expose = true
 }
